@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .dashboard {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 40px;
+    }
+    .city {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 320px;
+    }
+    .city h2 {
+      margin-top: 0;
+    }
+    .chart {
+      width: 100%;
+      margin: 10px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .download-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 14px;
+      font-size: 14px;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .download-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌤️ Weather Dashboard - 5 Cities</h1>
+
+  <!-- Combined Dashboard -->
+  <div style="text-align:center; margin-bottom: 50px;">
+    <h2>📊 Combined Dashboard - All Cities</h2>
+    <img src="{{ url_for('static', filename='weather_combined_dashboard.png') }}"
+         alt="Combined Dashboard"
+         style="max-width: 95%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+    <br>
+    <a class="download-btn" href="{{ url_for('static', filename='weather_combined_dashboard.png') }}" download>
+      ⬇ Download Combined Dashboard
+    </a>
+  </div>
+
+  <!-- Individual City Dashboards -->
+  <div class="dashboard">
+    {% for city in cities %}
+    <div class="city">
+      <h2>{{ city.name }}</h2>
+      <img src="{{ city.dashboard }}" alt="Dashboard" class="chart">
+      <a class="download-btn" href="{{ city.dashboard }}" download>⬇ Download Dashboard</a><br>
+      <img src="{{ city.forecast }}" alt="Forecast" class="chart">
+      <a class="download-btn" href="{{ city.forecast }}" download>⬇ Download Forecast</a>
+    </div>
+    {% endfor %}
+  </div>
+</body>
+</html>
+
